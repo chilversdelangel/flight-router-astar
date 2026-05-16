@@ -1,6 +1,5 @@
 package mx.tecnm.cdmadero.flightrouter.domain.algorithm
 
-import mx.tecnm.cdmadero.flightrouter.domain.algorithm.DistanceCalculator.calculateDistanceTo
 import mx.tecnm.cdmadero.flightrouter.domain.model.City
 import mx.tecnm.cdmadero.flightrouter.domain.model.Graph
 import java.util.PriorityQueue
@@ -25,6 +24,10 @@ fun Graph.findPathBetween(originCity: City, destinationCity: City): List<RouteSt
 
     while (stepsToEvaluate.isNotEmpty()) {
         val currentStep = stepsToEvaluate.remove()
+
+        val bestKnownCost = bestKnownCosts[currentStep.currentCity.id] ?: Double.MAX_VALUE
+
+        if (currentStep.accumulatedCost > bestKnownCost) continue
 
         if (currentStep.currentCity.id == destinationCity.id) {
             return currentStep.traceRoute(trace = previousStepFrom)
