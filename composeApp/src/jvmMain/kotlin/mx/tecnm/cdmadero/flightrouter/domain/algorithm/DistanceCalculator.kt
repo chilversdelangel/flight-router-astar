@@ -1,49 +1,44 @@
 package mx.tecnm.cdmadero.flightrouter.domain.algorithm
 
 import mx.tecnm.cdmadero.flightrouter.domain.model.City
-import kotlin.math.PI
-import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
+import kotlin.math.*
 
-object DistanceCalculator {
-    private const val EARTH_MEAN_RADIUS = 6378.0
+private const val EARTH_MEAN_RADIUS = 6378.0
 
-    private fun calculateDistance(
-        originCity: City,
-        destinationCity: City
-    ): Double {
-        val originLatRadians = (originCity.latitude).toRadians()
-        val destinationLatRadians = (destinationCity.latitude).toRadians()
+private fun calculateDistance(
+    originCity: City,
+    destinationCity: City
+): Double {
+    val originLatRadians = (originCity.latitude).toRadians()
+    val destinationLatRadians = (destinationCity.latitude).toRadians()
 
-        val originLonRadians = (originCity.longitude).toRadians()
-        val destinationLonRadians = (destinationCity.longitude).toRadians()
+    val originLonRadians = (originCity.longitude).toRadians()
+    val destinationLonRadians = (destinationCity.longitude).toRadians()
 
-        val latDifference = originLatRadians - destinationLatRadians
-        val lonDifference = originLonRadians - destinationLonRadians
+    val latDifference = originLatRadians - destinationLatRadians
+    val lonDifference = originLonRadians - destinationLonRadians
 
-        val haversineTheta = (sin(latDifference / 2)).toSquared() +
-                cos(originLatRadians) *
-                cos(destinationLatRadians) *
-                sin(lonDifference / 2).toSquared()
+    val haversineTheta = (sin(latDifference / 2)).toSquared() +
+            cos(originLatRadians) *
+            cos(destinationLatRadians) *
+            sin(lonDifference / 2).toSquared()
 
-        val centralAngle = 2 *
-                atan2(
-                    sqrt(haversineTheta),
-                    sqrt(1 - haversineTheta)
-                )
+    val centralAngle = 2 *
+            atan2(
+                sqrt(haversineTheta),
+                sqrt(1 - haversineTheta)
+            )
 
-        val distance = EARTH_MEAN_RADIUS * centralAngle
+    val distance = EARTH_MEAN_RADIUS * centralAngle
 
-        return distance
-    }
+    return distance
+}
 
-    private fun Double.toRadians() = (this * PI) / 180.0
+private fun Double.toRadians() = (this * PI) / 180.0
 
-    private fun Double.toSquared() = this * this
+private fun Double.toSquared() = this * this
 
-    fun City.calculateDistanceTo(destination: City): Double {
-        return calculateDistance(this, destination)
-    }
+
+fun City.calculateDistanceTo(destination: City): Double {
+    return calculateDistance(this, destination)
 }
