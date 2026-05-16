@@ -36,6 +36,9 @@ kotlin {
             // h2
             implementation(libs.h2)
         }
+        jvmTest.dependencies {
+            implementation(libs.kotlin.test)
+        }
     }
 }
 
