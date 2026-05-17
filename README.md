@@ -1,27 +1,56 @@
-This is a Kotlin Multiplatform project targeting Desktop (JVM).
+# ✈️ FlightRouter - A-star Route Discovery
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+A high-performance route-finding application built with **Compose Multiplatform** and **Kotlin**, designed to solve the shortest path problem between global cities using the **A-star Search Algorithm**.
 
-### Build and Run Desktop (JVM) Application
+![Kotlin](https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white)
+![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-Desktop-blue?style=for-the-badge)
+![SQLite](https://img.shields.io/badge/database-H2%20In--Memory-orange?style=for-the-badge)
 
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
+## 🚀 Overview
 
----
+FlightRouter is a technical demonstration of graph theory and heuristic search. It calculates the most efficient flight path between two geographic points by analyzing a network of connections and using the **Haversine formula** as a heuristic for the A-star algorithm.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+### Key Features
+- **A-star Algorithm Implementation:** Optimized pathfinding with suboptimal step skipping.
+- **Geographic Precision:** Uses the Haversine formula to calculate real-world distances between coordinates (Latitude/Longitude).
+- **Modern UI:** Built with Jetpack Compose for Desktop.
+- **Robust Architecture:** strictly follows the **MVVM (Model-View-ViewModel)** pattern.
+- **In-Memory Reliability:** Powered by **H2 Database** and **Exposed ORM** for seamless portability.
+
+## 🏗️ Architecture
+
+The project is structured following clean architecture principles:
+
+- **`domain`**: Contains the core logic, models (`City`, `Flight`), and the A-star implementation.
+- **`data`**: (In progress) Database schemas and repository implementations using JetBrains Exposed.
+- **`ui`**: (In progress) Reactive UI components and ViewModels.
+
+## 🛠️ Tech Stack
+
+- **Language:** Kotlin 2.x
+- **UI Framework:** Compose Multiplatform (Desktop)
+- **ORM:** JetBrains Exposed
+- **Database:** H2 (In-memory)
+- **Build System:** Gradle (Kotlin DSL)
+
+## 🧠 The Algorithm
+
+The heart of the application is the **A-star Search Algorithm**. It evaluates nodes based on the formula:
+`f(n) = g(n) + h(n)`
+
+Where:
+- `g(n)`: The accumulated distance from the origin.
+- `h(n)`: The heuristic (Haversine distance) from the current city to the destination.
+
+This ensures the algorithm is both **optimal** and **complete**.
+
+## 🚦 Getting Started
+
+### Prerequisites
+- JDK 17 or higher
+- IntelliJ IDEA (Recommended)
+
+### Running the App
+```bash
+./gradlew run
+```
