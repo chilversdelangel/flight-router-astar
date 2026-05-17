@@ -4,5 +4,5 @@ data class Flight(
     val id: Int,
     val originId: Int,
     val destinationId: Int,
-    val cost: Double,
+    val distance: Double,
 )

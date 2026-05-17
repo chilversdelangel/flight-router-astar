@@ -5,18 +5,18 @@ import mx.tecnm.cdmadero.flightrouter.domain.model.Graph
 import java.util.PriorityQueue
 
 fun Graph.findPathBetween(originCity: City, destinationCity: City): List<RouteStep> {
-    val stepsToEvaluate = PriorityQueue<RouteStep>(compareBy { it.totalEstimatedCost })
+    val stepsToEvaluate = PriorityQueue<RouteStep>(compareBy { it.totalEstimatedDistance })
 
-    val bestKnownCosts: MutableMap<Int, Double> = mutableMapOf()
+    val bestKnownDistances: MutableMap<Int, Double> = mutableMapOf()
     val previousStepFrom: MutableMap<Int, RouteStep> = mutableMapOf()
 
-    val estimatedCost = originCity.calculateDistanceTo(destinationCity)
+    val estimatedDistance = originCity.calculateDistanceTo(destinationCity)
 
-    bestKnownCosts[originCity.id] = 0.0
+    bestKnownDistances[originCity.id] = 0.0
 
     val initialStep = RouteStep(
-        accumulatedCost = 0.0,
-        estimatedCost = estimatedCost,
+        accumulatedDistance = 0.0,
+        estimatedDistance = estimatedDistance,
         currentCity = originCity
     )
 
@@ -25,26 +25,24 @@ fun Graph.findPathBetween(originCity: City, destinationCity: City): List<RouteSt
     while (stepsToEvaluate.isNotEmpty()) {
         val currentStep = stepsToEvaluate.remove()
 
-        val bestKnownCost = bestKnownCosts[currentStep.currentCity.id] ?: Double.MAX_VALUE
+        val bestKnownDistance = bestKnownDistances[currentStep.currentCity.id] ?: Double.MAX_VALUE
 
-        if (currentStep.accumulatedCost > bestKnownCost) continue
+        if (currentStep.accumulatedDistance > bestKnownDistance) continue
 
-        if (currentStep.currentCity.id == destinationCity.id) {
-            return currentStep.traceRoute(trace = previousStepFrom)
-        }
+        if (currentStep.currentCity.id == destinationCity.id) return currentStep.traceRoute(trace = previousStepFrom)
 
         val possibleFlights = this.findFlightsFrom(currentStep.currentCity.id)
 
         for (flight in possibleFlights) {
             val nextCityId = flight.destinationId
 
-            val proposedCost = currentStep.accumulatedCost + flight.cost
+            val proposedCost = currentStep.accumulatedDistance + flight.distance
 
-            val bestKnownCost = bestKnownCosts[nextCityId] ?: Double.MAX_VALUE
+            val bestKnownCost = bestKnownDistances[nextCityId] ?: Double.MAX_VALUE
 
             if (proposedCost >= bestKnownCost) continue
 
-            bestKnownCosts[nextCityId] = proposedCost
+            bestKnownDistances[nextCityId] = proposedCost
             previousStepFrom[nextCityId] = currentStep
 
             val nextCity = this.findCity(nextCityId) ?: continue
@@ -52,8 +50,8 @@ fun Graph.findPathBetween(originCity: City, destinationCity: City): List<RouteSt
             val newEstimatedCost = nextCity.calculateDistanceTo(destinationCity)
 
             val nextStep = RouteStep(
-                accumulatedCost = proposedCost,
-                estimatedCost = newEstimatedCost,
+                accumulatedDistance = proposedCost,
+                estimatedDistance = newEstimatedCost,
                 currentCity = nextCity,
                 previousCity = currentStep.currentCity
             )

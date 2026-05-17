@@ -42,8 +42,8 @@ class FindPathBetweenTest {
         )
         assertEquals(
             10.0,
-            route.last().accumulatedCost,
-            "The final total cost should be 10.0"
+            route.last().accumulatedDistance,
+            "The final total distance should be 10.0"
         )
     }
 
