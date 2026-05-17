@@ -1,4 +1,4 @@
-# ✈️ FlightRouter - A-star Route Discovery
+# ✈️ flight-router-astar - A-star Route Discovery
 
 A high-performance route-finding application built with **Compose Multiplatform** and **Kotlin**, designed to solve the shortest path problem between global cities using the **A-star Search Algorithm**.
 
