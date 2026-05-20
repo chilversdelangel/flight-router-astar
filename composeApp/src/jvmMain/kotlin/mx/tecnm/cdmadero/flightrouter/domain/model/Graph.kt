@@ -20,4 +20,8 @@ class Graph {
             .getOrPut(flight.originId) { mutableListOf() }
             .add(flight)
     }
+
+    fun getAllCities(): List<City> = cities.values.toList()
+
+    fun getAllFlights(): List<Flight> = flightsByCity.values.flatten()
 }
