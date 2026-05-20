@@ -15,7 +15,7 @@ class Graph {
         cities[city.id] = city
     }
 
-    fun registerCity(flight: Flight) {
+    fun registerFlight(flight: Flight) {
         flightsByCity
             .getOrPut(flight.originId) { mutableListOf() }
             .add(flight)

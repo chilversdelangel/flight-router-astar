@@ -20,11 +20,11 @@ class FindPathBetweenTest {
         graph.registerCity(altamira)
 
         // Expensive direct flight (15.0)
-        graph.registerCity(Flight(1, madero.id, altamira.id, 15.0))
+        graph.registerFlight(Flight(1, madero.id, altamira.id, 15.0))
 
         // Cheaper layover (5.0 + 5.0 = 10.0)
-        graph.registerCity(Flight(2, madero.id, tampico.id, 5.0))
-        graph.registerCity(Flight(3, tampico.id, altamira.id, 5.0))
+        graph.registerFlight(Flight(2, madero.id, tampico.id, 5.0))
+        graph.registerFlight(Flight(3, tampico.id, altamira.id, 5.0))
 
         // ACT
         val route = graph.findPathBetween(madero, altamira)
@@ -53,7 +53,7 @@ class FindPathBetweenTest {
         val graph = Graph()
         graph.registerCity(madero)
         graph.registerCity(altamira)
-        graph.registerCity(Flight(1, madero.id, altamira.id, 20.0))
+        graph.registerFlight(Flight(1, madero.id, altamira.id, 20.0))
 
         // ACT
         val route = graph.findPathBetween(madero, altamira)
