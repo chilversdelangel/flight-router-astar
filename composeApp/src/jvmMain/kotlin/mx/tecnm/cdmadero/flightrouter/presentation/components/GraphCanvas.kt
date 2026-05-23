@@ -8,8 +8,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
-import androidx.compose.ui.unit.sp
-import flightrouter.composeapp.generated.resources.Res
 import mx.tecnm.cdmadero.flightrouter.domain.model.City
 import mx.tecnm.cdmadero.flightrouter.domain.model.Flight
 
