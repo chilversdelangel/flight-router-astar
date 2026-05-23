@@ -19,19 +19,26 @@ FlightRouter is a technical demonstration of graph theory and heuristic search. 
 
 ## 🏗️ Architecture
 
-The project is structured following clean architecture principles:
+The project follows a clean **MVVM (Model-View-ViewModel)** architecture, ensuring a strict separation of concerns:
 
-- **`domain`**: Contains the core logic, models (`City`, `Flight`), and the A-star implementation.
-- **`data`**: (In progress) Database schemas and repository implementations using JetBrains Exposed.
-- **`ui`**: (In progress) Reactive UI components and ViewModels.
+- **`domain`**: Core business rules and logic.
+    - Models: `City`, `Flight`, and `Graph`.
+    - Algorithm: High-performance **A-star** implementation and geographic utilities (Haversine formula).
+- **`data`**: Persistence layer using **JetBrains Exposed ORM**.
+    - Configuration for **H2 In-Memory Database**.
+    - Repository pattern for decoupled data access.
+- **`presentation`** (UI): Reactive interface built with **Compose Multiplatform**.
+    - State management via ViewModels.
+    - Custom canvas components for route visualization.
 
 ## 🛠️ Tech Stack
 
 - **Language:** Kotlin 2.x
 - **UI Framework:** Compose Multiplatform (Desktop)
-- **ORM:** JetBrains Exposed
 - **Database:** H2 (In-memory)
-- **Build System:** Gradle (Kotlin DSL)
+- **ORM:** JetBrains Exposed
+- **Dependency Management:** Gradle Version Catalogs
+- **Architecture:** Clean Architecture + MVVM
 
 ## 🧠 The Algorithm
 
