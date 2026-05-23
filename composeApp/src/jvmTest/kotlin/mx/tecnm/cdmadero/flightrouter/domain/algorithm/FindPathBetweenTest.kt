@@ -6,10 +6,10 @@ import mx.tecnm.cdmadero.flightrouter.domain.model.Graph
 import kotlin.test.*
 
 class FindPathBetweenTest {
-    private val madero = City(1, "Tamaulipas", "Madero", 0.0, 0.0)
-    private val tampico = City(2, "Tamaulipas", "Tampico", 0.0, 0.0)
-    private val altamira = City(3, "Tamaulipas", "Altamira", 0.0, 0.0)
-    private val london = City(4, "UK", "London", 51.5, -0.1)
+    private val madero = City(1,  "Madero", 0.0, 0.0)
+    private val tampico = City(2, "Tampico", 0.0, 0.0)
+    private val altamira = City(3, "Altamira", 0.0, 0.0)
+    private val london = City(4,  "London", 51.5, -0.1)
 
     @Test
     fun `Should choose the cheaper layover over the expensive direct flight`() {
